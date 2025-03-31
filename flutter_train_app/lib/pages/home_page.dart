@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'station_list_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String? departureStation;
+  String? arrivalStation;
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +37,40 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // 출발역
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "출발역",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const StationListPage(title: "출발역"),
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "선택",
-                        style: TextStyle(
-                          fontSize: 40,
+                      );
+                      if (result != null) {
+                        setState(() {
+                          departureStation = result;
+                        });
+                      }
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "출발역",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        Text(
+                          departureStation ?? "선택",
+                          style: const TextStyle(
+                            fontSize: 40,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   // 세로선
                   Container(
@@ -55,31 +79,45 @@ class HomePage extends StatelessWidget {
                     color: Colors.grey[400],
                   ),
                   // 도착역
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "도착역",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const StationListPage(title: "도착역"),
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "선택",
-                        style: TextStyle(
-                          fontSize: 40,
+                      );
+                      if (result != null) {
+                        setState(() {
+                          arrivalStation = result;
+                        });
+                      }
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "도착역",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        Text(
+                          arrivalStation ?? "선택",
+                          style: const TextStyle(
+                            fontSize: 40,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
-            // 좌석 선택 버튼
             SizedBox(
               height: 50,
               child: ElevatedButton(
@@ -89,7 +127,16 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  // 좌석 선택 페이지로 이동
+                  if (departureStation != null && arrivalStation != null) {
+                    // TODO: SeatPage로 이동 (아직 안 만들었음)
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("출발역과 도착역을 모두 선택하세요")),
+                    );
+                  }
+                },
                 child: const Text(
                   "좌석 선택",
                   style: TextStyle(

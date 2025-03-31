@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/home_page.dart'; // 페이지 폴더에서 HomePage 가져오기
+import 'pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Train App',
       theme: ThemeData(
         useMaterial3: true,
