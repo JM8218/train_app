@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'station_list_page.dart';
+import 'seat_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -128,9 +129,17 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () {
-                  // 좌석 선택 페이지로 이동
                   if (departureStation != null && arrivalStation != null) {
-                    // TODO: SeatPage로 이동 (아직 안 만들었음)
+                    // 
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => SeatPage(
+                          departure: departureStation!,
+                          arrival: arrivalStation!,
+                        ),
+                      ),
+                    );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("출발역과 도착역을 모두 선택하세요")),
