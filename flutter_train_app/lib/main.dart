@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const HomePage(), // 바로 HomePage 띄우기
+      home: const HomePage(),
     );
   }
 }

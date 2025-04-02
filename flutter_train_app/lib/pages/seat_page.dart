@@ -37,7 +37,7 @@ class _SeatPageState extends State<SeatPage> {
       ),
       body: Column(
         children: [
-          // 출발역 -> 도착역
+          // 출발역 -> 도착역 표시
           Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
@@ -75,26 +75,18 @@ class _SeatPageState extends State<SeatPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  children: const [
-                    SizedBox(width: 50, child: Center(child: Text('A'))),
-                    SizedBox(width: 10),
-                    SizedBox(width: 50, child: Center(child: Text('B'))),
-                  ],
-                ),
-                const SizedBox(width: 50),
-                Row(
-                  children: const [
-                    SizedBox(width: 50, child: Center(child: Text('C'))),
-                    SizedBox(width: 10),
-                    SizedBox(width: 50, child: Center(child: Text('D'))),
-                  ],
-                ),
+                const SizedBox(width: 50, child: Center(child: Text('A'))),
+                const SizedBox(width: 10),
+                const SizedBox(width: 50, child: Center(child: Text('B'))),
+                const SizedBox(width: 30), // 통로
+                const SizedBox(width: 50, child: Center(child: Text('C'))),
+                const SizedBox(width: 10),
+                const SizedBox(width: 50, child: Center(child: Text('D'))),
               ],
             ),
           ),
           const SizedBox(height: 10),
-          // 좌석 리스트 (15줄)
+          // 좌석 선택 영역
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -105,21 +97,29 @@ class _SeatPageState extends State<SeatPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            seatBox(seatNumber, 'A'),
-                            const SizedBox(width: 10),
-                            seatBox(seatNumber, 'B'),
-                          ],
+                        // A열
+                        seatBox(seatNumber, 'A'),
+                        const SizedBox(width: 10),
+                        // B열
+                        seatBox(seatNumber, 'B'),
+                        // 번호
+                        SizedBox(
+                          width: 30,
+                          child: Center(
+                            child: Text(
+                              '$seatNumber',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
-                        const SizedBox(width: 50),
-                        Row(
-                          children: [
-                            seatBox(seatNumber, 'C'),
-                            const SizedBox(width: 10),
-                            seatBox(seatNumber, 'D'),
-                          ],
-                        ),
+                        // C열
+                        seatBox(seatNumber, 'C'),
+                        const SizedBox(width: 10),
+                        // D열
+                        seatBox(seatNumber, 'D'),
                       ],
                     ),
                   );

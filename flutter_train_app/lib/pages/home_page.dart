@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onPressed: () {
                   if (departureStation != null && arrivalStation != null) {
-                    // 
+                    //
                     Navigator.push(
                       context,
                       MaterialPageRoute(
